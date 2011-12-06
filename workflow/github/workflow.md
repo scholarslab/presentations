@@ -3,10 +3,28 @@
 ## (or at least how you will) ##
 
 !SLIDE bullets
-# Chat #
+# Chat & Ettiquite #
 
 * Asynchronous Communication
 * \#slab on freenode
+* Headphones means "busy"
+
+!SLIDE bullets
+# Pairing
+Use a Neutral computer (there are 4 in the lounge)
+
+**Driver:** Person doing the typing
+
+**Navigator:** Tells the driver what to do next
+
+Why? Two people looking at <strike>code</strike> the site, ideally knowing why each line is used.
+
+!SLIDE bullets
+# Workflow
+
+* **Develop** branch: current development
+* **Master** branch: stable release
+* **topic** branch: your local "improvement"
 
 !SLIDE commandline incremental
 # Git #
@@ -19,7 +37,6 @@
 # Topic Branches #
 
 	$ git branch authentication
-
 	$ git branch
 	authentication
 	* develop
@@ -28,6 +45,12 @@
 	$ git checkout authentication
 	Switched to branch 'authentication'
 
+!SLIDE bullets incremental
+
+# TODO/Issues #
+
+* [Issue Tracker](https://github.com/scholarslab/prism/issues)
+
 !SLIDE command
 # Implementing Code #
 
@@ -35,8 +58,6 @@
 
 	@@@ruby 
 	gem "devise", "~>1.5.2"
-	gem "omniauth", "~>1.0.1"
-	gem "omniauth-twitter", "~>0.0.7"
 	gem 'bcrypt-ruby', "~> 3.0.0"
 
 !SLIDE commandline
@@ -121,6 +142,8 @@
 
 Add a default mailer for your development environment
 
+
+
 ```config/environments/development.rb```
 	@@@ruby
 	config.action_mailer.default_url_options = { 
@@ -129,7 +152,6 @@ Add a default mailer for your development environment
 
 
 !SLIDE code incremental smaller
-
 
 ```app/views/layouts/application.html.erb```
 
@@ -150,7 +172,7 @@ Add a default mailer for your development environment
 
     [http://localhost:3000/users/sign_up/](localhost:3000/users/sign_up/)
 
-!SLIDE commandline incremental
+!SLIDE commandline incremental small
 
 # Changes #
 
@@ -162,9 +184,17 @@ Add a default mailer for your development environment
 	@@ -6,4 +6,5 @@ class User < ActiveRecord::Base
 	...
 
-	$ git commit -am "Added basic devise authentication"
+	$ git commit -am "Added basic devise authentication: closes #32"
 	[authentication a2f3208] Added basic devise authentication
- 	2 files changed, 12 insertions(+), 0 deletions(-)
+ 	2 files changed, 12 insertions(+), 0 deletions(-) 
+
+!SLIDE commandline incremental
+
+# Push Topic Branch
+
+	$ git push origin authentication
+
+* Sends notification to the group
 
 !SLIDE commandline incremental
 
@@ -180,21 +210,13 @@ Add a default mailer for your development environment
 
 !SLIDE commandline incremental
 
-# Push for Review #
-
-	$ git push origin develop
-
-!SLIDE commandline incremental
-
 # Deploying #
 
 	$ git co master
-
 	$ git pull origin master
 	From github.com:scholarslab/prism
 		* branch            master     -> FETCH_HEAD
 	Already up-to-date.
-  
 
 	$ git merge develop
 	Updating 60e1dfe..a2f3208
@@ -204,11 +226,6 @@ Add a default mailer for your development environment
  		2 files changed, 12 insertions(+), 0 deletions(-)
 	$ git push heroku master
 
-!SLIDE bullets incremental
-
-# TODO/Issues #
-
-* [Issue Tracker](https://github.com/scholarslab/prism/issues)
 
 !SLIDE bullets
 
@@ -217,8 +234,20 @@ Add a default mailer for your development environment
 * [GitHub Client](http://mac.github.com/) (OS X)
 * [SourceTree](http://www.sourcetreeapp.com/) (OS X)
 * [tortoisegit](http://code.google.com/p/tortoisegit/) (Windows)
+* [winmerge](http://www.winmerge.org) (Windows)
 
 * [git-flow](https://github.com/nvie/gitflow) 
+
+
+!SLIDE commandline incremental
+# That Design Sucks --clioweb
+
+    $ git co develop
+    $ git pull
+    $ git branch prettylogin
+    $ git co prettylogin
+    $ ...
+
 
 !SLIDE incremental
 
@@ -231,7 +260,31 @@ Add a default mailer for your development environment
 * Well it's not working for me, and you were the last one to touch the
   develop branch
 
-!SLIDE executable
+!SLIDE incremental
+# Predictions
 
-	@@@ruby
-	1 + 1
+* Someone will break your code
+* You will break someone else's code
+* You will throw away a lot of code
+
+!SLIDE incremental
+# Git Tools
+
+* [```git blame```](https://github.com/scholarslab/prism/blame/develop/app/controllers/pages_controller.rb)
+* [comments](https://github.com/scholarslab/prism/commit/016161dcfd974cfbaa2a9dced41287e2a7a98103)
+* ```git stash```
+* ```git reset --hard```
+
+!SLIDE incremental
+
+# Tips
+* Communicating is key to your success
+* Don't try to develop every little thing
+* Commit often, use comments
+* There are a lot of moving parts, things will break
+* It's easier to throw away a topic branch than revert a public branch
+* Branch with abandon
+
+
+
+ 
