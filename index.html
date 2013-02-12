@@ -11,7 +11,11 @@
   <link rel="stylesheet" href="./css/reset.css" type="text/css"/>
   <link rel="stylesheet" href="./css/showoff.css" type="text/css"/>
 
-  <script type="text/javascript" src="./js/jquery-1.4.2.min.js"></script>
+  <link type="text/css" href="./css/fg.menu.css" media="screen" rel="stylesheet" />
+  <link type="text/css" href="./css/theme/ui.all.css" media="screen" rel="stylesheet" />
+  <link type="text/css" href="./css/sh_style.css" rel="stylesheet" />
+
+  <script type="text/javascript" src="./js/jquery-1.7.2.min.js"></script>
   <script type="text/javascript" src="./js/jquery.cycle.all.js"></script>
 	<script type="text/javascript" src="./js/jquery-print.js"></script>
   <script type="text/javascript" src="./js/jquery.batchImageLoad.js"></script>
@@ -26,9 +30,11 @@
   <script type="text/javascript" src="./js/showoffcore.js"></script>
   <script type="text/javascript" src="./js/coffee-script.js"></script>
 
-  <link type="text/css" href="./css/fg.menu.css" media="screen" rel="stylesheet" />
-  <link type="text/css" href="./css/theme/ui.all.css" media="screen" rel="stylesheet" />
-  <link type="text/css" href="./css/sh_style.css" rel="stylesheet" >
+  
+    
+      <script type="text/javascript" src="./js/sh_lang/sh_ruby.min.js"></script>
+    
+  
 
   
 
@@ -59,6 +65,7 @@
     <tr><td class="key">r</td><td>reload slides</td></tr>
     <tr><td class="key">n</td><td>toggle notes</td></tr>
     <tr><td class="key">p</td><td>run preshow</td></tr>
+    <tr><td class="key">P</td><td>toggle pause</td></tr>
   </table>
 </div>
 
@@ -78,7 +85,8 @@
 <div class="slide" data-transition="none"><div class="content title-slide" ref="workflow/github/workflow/1">
 <h1>How Scholars' Lab Develop Works</h1>
 
-<h2>(or at least how you will)</h2></div>
+<h2>(or at least how you will)</h2>
+</div>
 </div><div class="slide" data-transition="none"><div class="content bullets" ref="workflow/github/workflow/2">
 <h1>Chat &amp; Ettiquite</h1>
 
@@ -97,7 +105,8 @@
 
 <p><strong>Navigator:</strong> Tells the driver what to do next</p>
 
-<p>Why? Two people looking at <strike>code</strike> the site, ideally knowing why each line is used.</p></div>
+<p>Why? Two people looking at <strike>code</strike> the site, ideally knowing why each line is used.</p>
+</div>
 </div><div class="slide" data-transition="none"><div class="content bullets" ref="workflow/github/workflow/4">
 <h1>Workflow</h1>
 
@@ -113,7 +122,8 @@
 <pre><code><code class="command">$ git commit -am 'prisma-things are working'</code>
 <code class="result">[master ac5fd8a] 'prisma-things are working
  2 files changed, 32 insertions(+), 5 deletions(-)
-</code></code></pre></div>
+</code></code></pre>
+</div>
 </div><div class="slide" data-transition="none"><div class="content commandline incremental" ref="workflow/github/workflow/6">
 <h1>Topic Branches</h1>
 
@@ -125,7 +135,8 @@ master
 
 </code><code class="command">$ git checkout authentication</code>
 <code class="result">Switched to branch 'authentication'
-</code></code></pre></div>
+</code></code></pre>
+</div>
 </div><div class="slide" data-transition="none"><div class="content bullets incremental" ref="workflow/github/workflow/7">
 <h1>TODO/Issues</h1>
 
@@ -139,7 +150,8 @@ master
 <p><code>Gemfile</code></p>
 
 <pre class="sh_ruby"><code>gem "devise", "~&gt;1.5.2"
-gem 'bcrypt-ruby', "~&gt; 3.0.0"</code></pre></div>
+gem 'bcrypt-ruby', "~&gt; 3.0.0"</code></pre>
+</div>
 </div><div class="slide" data-transition="none"><div class="content commandline" ref="workflow/github/workflow/9">
 <h1>Install Libraries</h1>
 
@@ -147,7 +159,8 @@ gem 'bcrypt-ruby', "~&gt; 3.0.0"</code></pre></div>
 <code class="result">...
 Your bundle is complete! Use `bundle show [gemname]` to see 
 where a bundled gem is installed.
-</code></code></pre></div>
+</code></code></pre>
+</div>
 </div><div class="slide" data-transition="none"><div class="content commandline incremental" ref="workflow/github/workflow/10">
 <h1>Install Devise Generator</h1>
 
@@ -155,7 +168,8 @@ where a bundled gem is installed.
 <code class="result">create  config/initializers/devise.rb
 create  config/locales/devise.en.yml
 ...
-</code></code></pre></div>
+</code></code></pre>
+</div>
 </div><div class="slide" data-transition="none"><div class="content commandline incremental" ref="workflow/github/workflow/11">
 <h1>Create User Model</h1>
 
@@ -168,19 +182,20 @@ test/unit/user_test.rb
 create      test/fixtures/users.yml
 insert    app/models/user.rb
 route  devise_for :users
-</code></code></pre></div>
+</code></code></pre>
+</div>
 </div><div class="slide" data-transition="none"><div class="content code smaller" ref="workflow/github/workflow/12">
-<p><code>db/migrate/20111130162023_devise_create_users.rb</code></p>
+<p><code>db/migrate/20111130162023_devise_create_users.rb</code>
+    @@@ruby 
+    class DeviseCreateUsers &lt; ActiveRecord::Migration
+        def change
+            create<em>table(:users) do |t|
+                t.database</em>authenticatable :null =&gt; false
+                t.recoverable
+                t.rememberable
+                t.trackable</p>
 
-<pre class="sh_ruby"><code>class DeviseCreateUsers &lt; ActiveRecord::Migration
-    def change
-        create_table(:users) do |t|
-            t.database_authenticatable :null =&gt; false
-            t.recoverable
-            t.rememberable
-            t.trackable
-
-            t.encryptable
+<pre><code>            t.encryptable
             # t.confirmable
             # t.lockable :lock_strategy =&gt; :failed_attempts, :unlock_strategy =&gt; :both
             # t.token_authenticatable
@@ -196,7 +211,9 @@ route  devise_for :users
         # add_index :users, :authentication_token, :unique =&gt; true
     end
 
-end</code></pre></div>
+end
+</code></pre>
+</div>
 </div><div class="slide" data-transition="none"><div class="content commandline incremental small" ref="workflow/github/workflow/13">
 <pre><code><code class="command">$ rake db:migrate</code>
 <code class="result">==  DeviseCreateUsers: migrating ============================================
@@ -207,7 +224,8 @@ end</code></pre></div>
 -- add_index(:users, :reset_password_token, {:unique=&gt;true})
     -&gt; 0.0007s
 ==  DeviseCreateUsers: migrated (0.0343s) ===================================
-</code></code></pre></div>
+</code></code></pre>
+</div>
 </div><div class="slide" data-transition="none"><div class="content commandline incremental small" ref="workflow/github/workflow/14">
 <pre><code><code class="command">$ rails g devise views</code>
 <code class="result">...
@@ -215,15 +233,17 @@ create    app/views/devise/mailer
 create    app/views/devise/mailer/confirmation_instructions.html.erb
 create    app/views/devise/mailer/reset_password_instructions.html.erb
 create    app/views/devise/mailer/unlock_instructions.html.erb
-</code></code></pre></div>
+</code></code></pre>
+</div>
 </div><div class="slide" data-transition="none"><div class="content small" ref="workflow/github/workflow/15">
 <p>Add a default mailer for your development environment</p>
 
-<p><code>config/environments/development.rb</code></p>
-
-<pre class="sh_ruby"><code>config.action_mailer.default_url_options = { 
-    :host =&gt; 'localhost:3000' 
-}</code></pre></div>
+<p><code>config/environments/development.rb</code>
+    @@@ruby
+    config.action<em>mailer.default</em>url_options = { 
+        :host =&gt; 'localhost:3000' 
+    }</p>
+</div>
 </div><div class="slide" data-transition="none"><div class="content code incremental smaller" ref="workflow/github/workflow/16">
 <p><code>app/views/layouts/application.html.erb</code></p>
 
@@ -235,12 +255,13 @@ create    app/views/devise/mailer/unlock_instructions.html.erb
         &lt;%= link_to "Sign up", new_user_registration_path %&gt; or  
         &lt;%= link_to "Sign in", new_user_session_path %&gt;  
     &lt;% end %&gt;  
-&lt;/div&gt;</code></pre></div>
+&lt;/div&gt;</code></pre>
+</div>
 </div><div class="slide" data-transition="none"><div class="content bullets" ref="workflow/github/workflow/17">
 <ul>
 <li><p>Test in the browser</p>
 
-<p>  <a href="localhost:3000/users/sign_up/">http://localhost:3000/users/sign_up/</a></p></li>
+<p><a href="localhost:3000/users/sign_up/">http://localhost:3000/users/sign_up/</a></p></li>
 </ul>
 </div>
 </div><div class="slide" data-transition="none"><div class="content commandline incremental small" ref="workflow/github/workflow/18">
@@ -257,7 +278,8 @@ index b2f7c8e..ad5fd6e 100644
 </code><code class="command">$ git commit -am "Added basic devise authentication: closes #32"</code>
 <code class="result">[authentication a2f3208] Added basic devise authentication
 2 files changed, 12 insertions(+), 0 deletions(-) 
-</code></code></pre></div>
+</code></code></pre>
+</div>
 </div><div class="slide" data-transition="none"><div class="content commandline incremental" ref="workflow/github/workflow/19">
 <h1>Push Topic Branch</h1>
 
@@ -278,7 +300,8 @@ Fast-forward
     app/models/user.rb                     |    1 +
     app/views/layouts/application.html.erb |   11 +++++++++++
     2 files changed, 12 insertions(+), 0 deletions(-)
-</code></code></pre></div>
+</code></code></pre>
+</div>
 </div><div class="slide" data-transition="none"><div class="content commandline incremental" ref="workflow/github/workflow/21">
 <h1>Deploying</h1>
 
@@ -295,7 +318,8 @@ Fast-forward
     app/views/layouts/application.html.erb |   11 +++++++++++
     2 files changed, 12 insertions(+), 0 deletions(-)
 </code><code class="command">$ git push heroku master</code>
-</code></pre></div>
+</code></pre>
+</div>
 </div><div class="slide" data-transition="none"><div class="content bullets" ref="workflow/github/workflow/22">
 <h1>"Power Tools"</h1>
 
@@ -304,7 +328,7 @@ Fast-forward
 <li><a href="http://www.sourcetreeapp.com/">SourceTree</a> (OS X)</li>
 <li><a href="http://code.google.com/p/tortoisegit/">tortoisegit</a> (Windows)</li>
 <li><p><a href="http://www.winmerge.org">winmerge</a> (Windows)</p></li>
-<li><p><a href="https://github.com/nvie/gitflow">git-flow</a></p></li>
+<li><p><a href="https://github.com/nvie/gitflow">git-flow</a> </p></li>
 </ul>
 </div>
 </div><div class="slide" data-transition="none"><div class="content commandline incremental" ref="workflow/github/workflow/23">
@@ -315,7 +339,8 @@ Fast-forward
 <code class="command">$ git branch prettylogin</code>
 <code class="command">$ git co prettylogin</code>
 <code class="command">$ ...</code>
-</code></pre></div>
+</code></pre>
+</div>
 </div><div class="slide" data-transition="none"><div class="content incremental" ref="workflow/github/workflow/24">
 <h1>Wayne's Code Broke My Feature</h1>
 
@@ -361,6 +386,9 @@ develop branch</li>
 </ul>
 </div>
 </div></div>
+<div id="pauseScreen">
+  
+</div>
 
 </body>
 </html>
